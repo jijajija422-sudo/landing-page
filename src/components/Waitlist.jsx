@@ -1,5 +1,62 @@
-import { useState, useRef } from 'react'
-import { motion, useInView, AnimatePresence } from 'framer-motion'
+import { useState, useRef, useEffect } from "react"
+import { motion, useInView, AnimatePresence } from "framer-motion"
+
+// Launch date — set ~90 days from now for demo
+const LAUNCH = new Date(Date.now() + 90 * 24 * 60 * 60 * 1000)
+
+function useCountdown() {
+  const [t, setT] = useState(() => {
+    const diff = LAUNCH - Date.now()
+    return diff > 0 ? diff : 0
+  })
+  useEffect(() => {
+    const id = setInterval(() => setT(Math.max(0, LAUNCH - Date.now())), 1000)
+    return () => clearInterval(id)
+  }, [])
+  const d = Math.floor(t / 86400000)
+  const h = Math.floor((t % 86400000) / 3600000)
+  const m = Math.floor((t % 3600000) / 60000)
+  const s = Math.floor((t % 60000) / 1000)
+  return { d, h, m, s }
+}
+
+function CountdownUnit({ value, label }) {
+  return (
+    <div className="flex flex-col items-center">
+      <div className="glass glow-border rounded-xl px-4 py-3 min-w-[56px] text-center">
+        <span className="font-display text-2xl sm:text-3xl font-semibold text-gradient">
+          {String(value).padStart(2, "0")}
+        </span>
+      </div>
+      <span className="text-xs text-brand-muted mt-1.5 tracking-widest uppercase">{label}</span>
+    </div>
+  )
+}
+
+function Countdown({ inView }) {
+  const { d, h, m, s } = useCountdown()
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.6, delay: 0.1 }}
+      className="mb-10 text-center"
+    >
+      <p className="text-xs font-semibold tracking-widest uppercase text-brand-primary mb-4">
+        Early access closes in
+      </p>
+      <div className="flex items-start justify-center gap-3 sm:gap-5">
+        <CountdownUnit value={d} label="Days" />
+        <span className="font-display text-2xl text-brand-muted mt-3">:</span>
+        <CountdownUnit value={h} label="Hours" />
+        <span className="font-display text-2xl text-brand-muted mt-3">:</span>
+        <CountdownUnit value={m} label="Min" />
+        <span className="font-display text-2xl text-brand-muted mt-3">:</span>
+        <CountdownUnit value={s} label="Sec" />
+      </div>
+    </motion.div>
+  )
+}
 
 function CheckIcon() {
   return (
@@ -101,6 +158,9 @@ export default function Waitlist() {
               and a complimentary sample with your first order.
             </p>
           </motion.div>
+
+          {/* Countdown */}
+          <Countdown inView={inView} />
 
           {/* Form card */}
           <motion.div

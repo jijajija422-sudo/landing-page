@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import bottleImg from '../assets/bottle.png'
 
@@ -50,12 +50,31 @@ const item = {
 }
 
 export default function Hero() {
+  const [tilt, setTilt] = useState({ x: 0, y: 0 })
+  const sectionRef = useRef(null)
+
+  const handleMouseMove = (e) => {
+    const rect = sectionRef.current?.getBoundingClientRect()
+    if (!rect) return
+    const cx = rect.left + rect.width / 2
+    const cy = rect.top + rect.height / 2
+    setTilt({
+      x: ((e.clientX - cx) / rect.width) * 18,
+      y: ((e.clientY - cy) / rect.height) * -12,
+    })
+  }
+
+  const handleMouseLeave = () => setTilt({ x: 0, y: 0 })
+
   return (
     <section
+      ref={sectionRef}
       id="hero"
       aria-label="Hero section"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
       style={{ background: 'radial-gradient(ellipse at 50% 0%, #1e0a3c 0%, #0a0010 65%)' }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
     >
       {/* Glowing orbs */}
       <div
@@ -163,12 +182,22 @@ export default function Hero() {
             style={{ animation: 'spin 15s linear infinite reverse' }}
           />
 
-          {/* Bottle image */}
+          {/* Bottle image — parallax on mouse */}
           <motion.img
             src={bottleImg}
             alt="Midnight Ceramide luxury perfume bottle"
             className="relative z-10 w-56 sm:w-72 lg:w-80 xl:w-96 drop-shadow-2xl object-contain"
-            style={{ animation: 'float 6s ease-in-out infinite' }}
+            animate={{
+              rotateY: tilt.x,
+              rotateX: tilt.y,
+              y: [0, -20, 0],
+            }}
+            transition={{
+              rotateY: { duration: 0.6, ease: 'easeOut' },
+              rotateX: { duration: 0.6, ease: 'easeOut' },
+              y: { duration: 6, repeat: Infinity, ease: 'easeInOut' },
+            }}
+            style={{ perspective: 1000 }}
           />
         </motion.div>
       </div>

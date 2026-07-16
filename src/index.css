@@ -270,6 +270,40 @@ body {
   box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
 }
 
+/* ── Custom Cursor ── */
+body { cursor: none; }
+@media (pointer: coarse) { body { cursor: auto; } }
+
+.cursor-dot {
+  position: fixed;
+  top: 0; left: 0;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #a855f7;
+  pointer-events: none;
+  z-index: 9999;
+  will-change: transform;
+  box-shadow: 0 0 10px rgba(168,85,247,0.8);
+}
+
+.cursor-ring {
+  position: fixed;
+  top: 0; left: 0;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  border: 1px solid rgba(168, 85, 247, 0.5);
+  pointer-events: none;
+  z-index: 9999;
+  will-change: transform;
+  transition: width 0.2s, height 0.2s, border-color 0.2s;
+}
+
+.cursor-ring.cursor-hover {
+  width: 48px; height: 48px;
+  border-color: rgba(216, 180, 254, 0.7);
+  margin-top: -8px; margin-left: -8px;
+}
+
 /* ── Star Rating ── */
 .star {
   color: #a855f7;
