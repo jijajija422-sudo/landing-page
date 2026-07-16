@@ -1,6 +1,7 @@
 import { Helmet } from 'react-helmet-async'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
+import Gallery from './components/Gallery'
 import Features from './components/Features'
 import Testimonials from './components/Testimonials'
 import FAQ from './components/FAQ'
@@ -22,6 +23,7 @@ export default function App() {
         <Navbar />
         <main id="main-content">
           <Hero />
+          <Gallery />
           <Features />
           <Testimonials />
           <FAQ />

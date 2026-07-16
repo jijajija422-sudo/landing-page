@@ -93,6 +93,22 @@ body {
   transform: translateY(0);
 }
 
+/* Compact variant for mobile nav (← smaller padding, same visual style) */
+.btn-primary-sm {
+  @apply relative inline-flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-full font-semibold text-sm text-white overflow-hidden transition-all duration-300;
+  background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%);
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.35);
+}
+
+.btn-primary-sm:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 36px rgba(168, 85, 247, 0.55);
+}
+
+.btn-primary-sm:active {
+  transform: translateY(0);
+}
+
 .btn-outline {
   @apply inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-semibold transition-all duration-300;
   border: 1px solid rgba(139, 92, 246, 0.5);

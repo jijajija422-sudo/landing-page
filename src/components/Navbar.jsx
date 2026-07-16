@@ -117,7 +117,7 @@ export default function Navbar() {
                 <a
                   href="#waitlist"
                   onClick={handleMobileLink}
-                  className="btn-primary w-full text-center text-sm mt-2"
+                  className="btn-primary-sm w-full justify-center mt-2"
                 >
                   Join Waitlist
                 </a>
