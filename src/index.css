@@ -78,36 +78,123 @@ body {
   box-shadow: 0 0 20px rgba(139, 92, 246, 0.1), inset 0 0 20px rgba(139, 92, 246, 0.05);
 }
 
+/* ── Luxury gold shimmer sweep ── */
+@keyframes goldShimmer {
+  0%   { transform: translateX(-100%) skewX(-15deg); }
+  100% { transform: translateX(260%)  skewX(-15deg); }
+}
+
+/*
+  Primary CTA — dark glass body, gold gradient border, shimmering light sweep.
+  Inspired by the bottle: deep purple-black glass + hand-polished gold cap.
+*/
 .btn-primary {
-  @apply relative inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-semibold text-white overflow-hidden transition-all duration-300;
-  background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%);
-  box-shadow: 0 0 30px rgba(139, 92, 246, 0.4);
+  @apply relative inline-flex items-center justify-center gap-2.5
+         px-8 py-3.5 rounded-full font-semibold tracking-widest uppercase
+         text-sm overflow-hidden transition-all duration-500;
+  /* Dark semi-transparent glass base */
+  background: rgba(12, 4, 28, 0.85);
+  /* Gold gradient border via box-shadow trick + pseudo border */
+  border: 1px solid transparent;
+  background-clip: padding-box;
+  /* Layered: inner dark, outer gold glow */
+  box-shadow:
+    0 0 0 1px rgba(197, 160, 80, 0.55),
+    0 4px 24px rgba(197, 160, 80, 0.12),
+    inset 0 1px 0 rgba(245, 215, 140, 0.08);
+  /* Gold gradient text */
+  color: transparent;
+  background-image:
+    linear-gradient(rgba(12, 4, 28, 0.85), rgba(12, 4, 28, 0.85)),
+    linear-gradient(135deg, #c9a84c, #f5d98b, #c9a84c);
+  -webkit-background-clip: text, padding-box;
+  background-clip: text, padding-box;
+  color: #e8c96a;
+  letter-spacing: 0.14em;
+  backdrop-filter: blur(8px);
+}
+
+/* Light sweep pseudo-element */
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(245, 215, 140, 0.18) 50%,
+    transparent 60%
+  );
+  transform: translateX(-100%) skewX(-15deg);
+  transition: none;
+  pointer-events: none;
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 0 50px rgba(168, 85, 247, 0.6);
+  box-shadow:
+    0 0 0 1px rgba(245, 215, 140, 0.75),
+    0 8px 36px rgba(197, 160, 80, 0.28),
+    inset 0 1px 0 rgba(245, 215, 140, 0.15);
+  color: #f5d98b;
+}
+
+.btn-primary:hover::before {
+  animation: goldShimmer 0.7s ease forwards;
 }
 
 .btn-primary:active {
   transform: translateY(0);
 }
 
-/* Compact variant for mobile nav (← smaller padding, same visual style) */
+/* ── Compact variant — same luxury, smaller scale ── */
 .btn-primary-sm {
-  @apply relative inline-flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-full font-semibold text-sm text-white overflow-hidden transition-all duration-300;
-  background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%);
-  box-shadow: 0 0 20px rgba(139, 92, 246, 0.35);
+  @apply relative inline-flex items-center justify-center gap-2
+         px-5 py-2.5 rounded-full font-semibold tracking-widest uppercase
+         text-xs overflow-hidden transition-all duration-500;
+  background: rgba(12, 4, 28, 0.85);
+  border: 1px solid transparent;
+  background-clip: padding-box;
+  box-shadow:
+    0 0 0 1px rgba(197, 160, 80, 0.5),
+    0 2px 16px rgba(197, 160, 80, 0.10),
+    inset 0 1px 0 rgba(245, 215, 140, 0.06);
+  color: #e8c96a;
+  letter-spacing: 0.12em;
+  backdrop-filter: blur(8px);
+}
+
+.btn-primary-sm::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(245, 215, 140, 0.16) 50%,
+    transparent 60%
+  );
+  transform: translateX(-100%) skewX(-15deg);
+  pointer-events: none;
 }
 
 .btn-primary-sm:hover {
   transform: translateY(-2px);
-  box-shadow: 0 0 36px rgba(168, 85, 247, 0.55);
+  box-shadow:
+    0 0 0 1px rgba(245, 215, 140, 0.7),
+    0 4px 24px rgba(197, 160, 80, 0.22),
+    inset 0 1px 0 rgba(245, 215, 140, 0.12);
+  color: #f5d98b;
+}
+
+.btn-primary-sm:hover::before {
+  animation: goldShimmer 0.7s ease forwards;
 }
 
 .btn-primary-sm:active {
   transform: translateY(0);
 }
+
 
 .btn-outline {
   @apply inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-semibold transition-all duration-300;

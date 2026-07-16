@@ -112,14 +112,14 @@ export default function Hero() {
           </motion.div>
 
           {/* CTAs */}
-          <motion.div variants={item} className="flex flex-row sm:flex-col md:flex-row gap-3 justify-center lg:justify-start">
+          <motion.div variants={item} className="flex flex-row sm:flex-row gap-3 justify-center lg:justify-start">
             <a
               href="#waitlist"
               id="hero-waitlist-cta"
               aria-label="Join the exclusive waitlist"
-              className="btn-primary-sm sm:btn-primary flex-1 sm:flex-none"
+              className="btn-primary"
             >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="shrink-0">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="shrink-0">
                 <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>
               Join Waitlist
@@ -128,8 +128,7 @@ export default function Hero() {
               href="#features"
               id="hero-features-cta"
               aria-label="Discover the benefits"
-              className="btn-primary-sm sm:btn-outline flex-1 sm:flex-none"
-              style={{ background: 'transparent', border: '1px solid rgba(139,92,246,0.5)', color: '#d8b4fe', boxShadow: 'none' }}
+              className="btn-outline"
             >
               Discover
             </a>
