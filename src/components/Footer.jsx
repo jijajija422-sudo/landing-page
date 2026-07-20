@@ -82,7 +82,7 @@ export default function Footer() {
               Where luxury fragrance meets skin science. The first perfume that nourishes as deeply as it enchants.
             </p>
 
-            {/* Social icons */}
+            {/* Social icons — scaled to 44x44px touch targets on mobile */}
             <div className="flex gap-3">
               {socialLinks.map((social) => (
                 <a
@@ -91,7 +91,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`Follow us on ${social.label}`}
-                  className="w-9 h-9 rounded-full glass glow-border flex items-center justify-center text-brand-muted hover:text-brand-accent transition-colors duration-200"
+                  className="w-11 h-11 rounded-full glass glow-border flex items-center justify-center text-brand-muted hover:text-brand-accent active:scale-90 transition-transform duration-200"
                 >
                   {social.icon}
                 </a>
@@ -105,12 +105,12 @@ export default function Footer() {
               <h3 className="text-xs font-semibold tracking-widest uppercase text-brand-primary mb-5">
                 {group}
               </h3>
-              <ul className="flex flex-col gap-3" role="list">
+              <ul className="flex flex-col gap-2" role="list">
                 {links.map((link) => (
                   <li key={link.label}>
                     <a
                       href={link.href}
-                      className="text-sm text-brand-muted hover:text-brand-accent transition-colors duration-200 hover-underline"
+                      className="text-sm text-brand-muted hover:text-brand-accent transition-colors duration-200 hover-underline py-1.5 inline-block touch-target"
                     >
                       {link.label}
                     </a>

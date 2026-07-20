@@ -65,12 +65,12 @@ export default function Gallery() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12"
+          className="text-center mb-8 sm:mb-12"
         >
           <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase glass glow-border text-brand-accent mb-4">
             Every Angle
           </span>
-          <h2 className="font-display text-4xl sm:text-5xl font-semibold text-gradient mt-3">
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold text-gradient mt-3">
             A Bottle Worth Staring At
           </h2>
           <p className="mt-4 text-brand-muted max-w-md mx-auto text-sm sm:text-base leading-relaxed">
@@ -90,7 +90,7 @@ export default function Gallery() {
               viewport={{ once: true }}
               onClick={() => setActive(shot)}
               aria-label={`View ${shot.label}`}
-              className="group relative rounded-2xl overflow-hidden glass glow-border aspect-[3/4] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary"
+              className="group relative rounded-2xl overflow-hidden glass glow-border aspect-[3/4] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary min-h-[180px]"
             >
               {/* Image */}
               <img
@@ -100,12 +100,12 @@ export default function Gallery() {
                 loading="lazy"
               />
 
-              {/* Gradient overlay on hover */}
-              <div className="absolute inset-0 bg-gradient-to-t from-midnight-950/90 via-midnight-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              {/* Gradient overlay — visible on touch, animated on hover on desktop */}
+              <div className="absolute inset-0 bg-gradient-to-t from-midnight-950/95 via-midnight-950/30 to-transparent opacity-90 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
 
-              {/* Label badge */}
-              <div className="absolute bottom-0 left-0 right-0 p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out">
-                <span className="text-xs sm:text-sm font-semibold text-brand-accent tracking-wide">
+              {/* Label badge — permanently visible at bottom on mobile, translates on hover on desktop */}
+              <div className="absolute bottom-0 left-0 right-0 p-3.5 translate-y-0 lg:translate-y-full lg:group-hover:translate-y-0 transition-transform duration-300 ease-out z-10 text-left">
+                <span className="text-xs sm:text-sm font-semibold text-brand-accent tracking-wide block">
                   {shot.label}
                 </span>
                 <p className="text-[10px] sm:text-xs text-brand-muted mt-0.5 line-clamp-2 hidden sm:block">
@@ -113,8 +113,8 @@ export default function Gallery() {
                 </p>
               </div>
 
-              {/* Expand icon */}
-              <div className="absolute top-2 right-2 w-7 h-7 rounded-full glass flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              {/* Expand icon — visible on touch, hover on desktop */}
+              <div className="absolute top-2.5 right-2.5 w-8 h-8 rounded-full glass flex items-center justify-center opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-300 z-10 pointer-events-none">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-brand-accent" aria-hidden="true">
                   <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
                 </svg>
@@ -156,13 +156,13 @@ export default function Gallery() {
                 <h3 className="font-semibold text-brand-accent text-base">{active.label}</h3>
                 <p className="text-brand-muted text-sm mt-1">{active.caption}</p>
               </div>
-              {/* Close button */}
+              {/* Close button — 44x44px target on mobile */}
               <button
                 onClick={() => setActive(null)}
                 aria-label="Close lightbox"
-                className="absolute top-3 right-3 w-8 h-8 rounded-full glass flex items-center justify-center hover:bg-purple-900/40 transition-colors"
+                className="absolute top-3 right-3 w-11 h-11 rounded-full glass flex items-center justify-center hover:bg-purple-900/40 active:scale-95 transition-all duration-200"
               >
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-brand-accent" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-brand-accent" aria-hidden="true">
                   <path d="M18 6L6 18M6 6l12 12" />
                 </svg>
               </button>

@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import AnnouncementBar from './components/AnnouncementBar'
 import Navbar from './components/Navbar'
@@ -13,6 +14,17 @@ import Footer from './components/Footer'
 import CustomCursor from './components/CustomCursor'
 
 export default function App() {
+  const [showCursor, setShowCursor] = useState(false)
+
+  useEffect(() => {
+    const media = window.matchMedia('(hover: hover) and (pointer: fine)')
+    const update = () => setShowCursor(media.matches)
+
+    update()
+    media.addEventListener?.('change', update)
+    return () => media.removeEventListener?.('change', update)
+  }, [])
+
   return (
     <>
       <Helmet>
@@ -23,7 +35,7 @@ export default function App() {
         />
       </Helmet>
 
-      <CustomCursor />
+      {showCursor && <CustomCursor />}
 
       <div className="min-h-screen" style={{ background: '#0a0010' }}>
         <AnnouncementBar />

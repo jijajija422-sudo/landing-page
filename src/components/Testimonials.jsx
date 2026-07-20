@@ -61,8 +61,29 @@ export default function Testimonials() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
 
+  const touchStartX = useRef(0)
+  const touchEndX = useRef(0)
+
   const prev = () => setCurrent((c) => (c - 1 + testimonials.length) % testimonials.length)
   const next = () => setCurrent((c) => (c + 1) % testimonials.length)
+
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.targetTouches[0].clientX
+    touchEndX.current = e.targetTouches[0].clientX
+  }
+
+  const handleTouchMove = (e) => {
+    touchEndX.current = e.targetTouches[0].clientX
+  }
+
+  const handleTouchEnd = () => {
+    const diff = touchStartX.current - touchEndX.current
+    if (diff > 50) {
+      next()
+    } else if (diff < -50) {
+      prev()
+    }
+  }
 
   return (
     <section
@@ -85,14 +106,14 @@ export default function Testimonials() {
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
-          className="text-center mb-16"
+          className="text-center mb-10 sm:mb-16"
         >
           <span className="inline-block text-xs font-semibold tracking-widest uppercase text-brand-primary mb-4">
             What They Say
           </span>
           <h2
             id="testimonials-heading"
-            className="font-display text-4xl sm:text-5xl font-semibold text-brand-text mb-4"
+            className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold text-brand-text mb-4"
           >
             Worn &{' '}
             <span className="text-gradient italic">Loved</span>
@@ -112,7 +133,10 @@ export default function Testimonials() {
               exit={{ opacity: 0, x: -60 }}
               transition={{ duration: 0.4, ease: 'easeInOut' }}
               aria-label={`Testimonial from ${testimonials[current].name}`}
-              className="glass glow-border rounded-3xl p-8 sm:p-12 text-center relative overflow-hidden"
+              className="glass glow-border rounded-3xl p-6 sm:p-8 lg:p-12 text-center relative overflow-hidden cursor-grab active:cursor-grabbing select-none touch-pan-y"
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
             >
               {/* Decorative quote mark */}
               <span
@@ -128,7 +152,7 @@ export default function Testimonials() {
               </div>
 
               {/* Quote */}
-              <blockquote className="text-lg sm:text-xl font-serif italic text-brand-text leading-relaxed mb-8">
+              <blockquote className="text-base sm:text-lg lg:text-xl font-serif italic text-brand-text leading-relaxed mb-8">
                 "{testimonials[current].quote}"
               </blockquote>
 
@@ -152,20 +176,20 @@ export default function Testimonials() {
           </AnimatePresence>
 
           {/* Navigation */}
-          <div className="flex items-center justify-center gap-6 mt-10">
+          <div className="flex items-center justify-center gap-4 sm:gap-6 mt-8 sm:mt-10">
             <button
               id="testimonial-prev"
               onClick={prev}
               aria-label="Previous testimonial"
-              className="w-12 h-12 rounded-full glass glow-border flex items-center justify-center text-brand-accent hover:text-brand-text hover:border-purple-400/60 transition-all duration-200"
+              className="w-12 h-12 rounded-full glass glow-border flex items-center justify-center text-brand-accent hover:text-brand-text hover:border-purple-400/60 active:scale-95 transition-all duration-200"
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M19 12H5M12 19l-7-7 7-7" />
               </svg>
             </button>
 
-            {/* Dots */}
-            <div className="flex gap-2" role="tablist" aria-label="Testimonials navigation">
+            {/* Dots — wrapped in large touch targets to prevent fat-finger issues */}
+            <div className="flex items-center" role="tablist" aria-label="Testimonials navigation">
               {testimonials.map((_, i) => (
                 <button
                   key={i}
@@ -174,12 +198,16 @@ export default function Testimonials() {
                   aria-selected={i === current}
                   aria-label={`Go to testimonial ${i + 1}`}
                   onClick={() => setCurrent(i)}
-                  className={`rounded-full transition-all duration-300 ${
-                    i === current
-                      ? 'w-6 h-2 bg-brand-primary'
-                      : 'w-2 h-2 bg-brand-muted hover:bg-brand-primary'
-                  }`}
-                />
+                  className="w-9 h-9 flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary rounded-full"
+                >
+                  <span
+                    className={`rounded-full transition-all duration-300 ${
+                      i === current
+                        ? 'w-6 h-2 bg-brand-primary'
+                        : 'w-2 h-2 bg-brand-muted hover:bg-brand-primary'
+                    }`}
+                  />
+                </button>
               ))}
             </div>
 
@@ -187,7 +215,7 @@ export default function Testimonials() {
               id="testimonial-next"
               onClick={next}
               aria-label="Next testimonial"
-              className="w-12 h-12 rounded-full glass glow-border flex items-center justify-center text-brand-accent hover:text-brand-text hover:border-purple-400/60 transition-all duration-200"
+              className="w-12 h-12 rounded-full glass glow-border flex items-center justify-center text-brand-accent hover:text-brand-text hover:border-purple-400/60 active:scale-95 transition-all duration-200"
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M5 12h14M12 5l7 7-7 7" />
@@ -201,7 +229,7 @@ export default function Testimonials() {
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.4, duration: 0.7 }}
-          className="grid grid-cols-3 gap-4 mt-16 max-w-lg mx-auto"
+          className="grid grid-cols-3 gap-3 sm:gap-4 mt-10 sm:mt-16 max-w-lg mx-auto"
         >
           {[
             { value: '98%', label: 'Satisfaction rate' },

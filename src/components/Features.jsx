@@ -72,11 +72,6 @@ const features = [
   },
 ]
 
-const containerVariants = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.1 } },
-}
-
 const cardVariants = {
   hidden: { opacity: 0, y: 50 },
   show:   { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] } },
@@ -92,9 +87,10 @@ function FeatureCard({ feature, index }) {
       variants={cardVariants}
       initial="hidden"
       animate={inView ? 'show' : 'hidden'}
+      whileTap={{ scale: 0.98, transition: { duration: 0.15 } }}
       transition={{ delay: index * 0.08 }}
       aria-labelledby={`feature-title-${feature.id}`}
-      className="group relative p-6 rounded-2xl glass glow-border hover:border-purple-500/50 transition-all duration-300 cursor-default overflow-hidden"
+      className="group relative p-5 sm:p-6 rounded-2xl glass glow-border hover:border-purple-500/50 transition-all duration-300 cursor-pointer overflow-hidden"
     >
       {/* Hover shimmer */}
       <div
@@ -159,14 +155,14 @@ export default function Features() {
           initial={{ opacity: 0, y: 30 }}
           animate={headerInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.7 }}
-          className="text-center mb-16"
+          className="text-center mb-10 sm:mb-16"
         >
           <span className="inline-block text-xs font-semibold tracking-widest uppercase text-brand-primary mb-4">
             Why Midnight Ceramide
           </span>
           <h2
             id="features-heading"
-            className="font-display text-4xl sm:text-5xl font-semibold text-brand-text mb-4"
+            className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold text-brand-text mb-4"
           >
             Luxury{' '}
             <span className="text-gradient italic">Redefined</span>

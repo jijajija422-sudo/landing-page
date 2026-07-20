@@ -23,7 +23,7 @@ function useCountdown() {
 function CountdownUnit({ value, label }) {
   return (
     <div className="flex flex-col items-center">
-      <div className="glass glow-border rounded-xl px-4 py-3 min-w-[56px] text-center">
+      <div className="glass glow-border rounded-xl px-3 py-3 min-w-[52px] sm:min-w-[56px] text-center">
         <span className="font-display text-2xl sm:text-3xl font-semibold text-gradient">
           {String(value).padStart(2, "0")}
         </span>
@@ -40,12 +40,12 @@ function Countdown({ inView }) {
       initial={{ opacity: 0, y: 20 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.6, delay: 0.1 }}
-      className="mb-10 text-center"
+      className="mb-8 sm:mb-10 text-center"
     >
       <p className="text-xs font-semibold tracking-widest uppercase text-brand-primary mb-4">
         Early access closes in
       </p>
-      <div className="flex items-start justify-center gap-3 sm:gap-5">
+      <div className="flex items-start justify-center gap-2 sm:gap-5 overflow-x-auto px-2 pb-1">
         <CountdownUnit value={d} label="Days" />
         <span className="font-display text-2xl text-brand-muted mt-3">:</span>
         <CountdownUnit value={h} label="Hours" />
@@ -147,7 +147,7 @@ export default function Waitlist() {
             </span>
             <h2
               id="waitlist-heading"
-              className="font-display text-4xl sm:text-5xl font-semibold text-brand-text mb-4"
+              className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold text-brand-text mb-4"
             >
               Reserve Your{' '}
               <span className="text-gradient italic">Bottle</span>
@@ -167,7 +167,7 @@ export default function Waitlist() {
             initial={{ opacity: 0, y: 40 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.15 }}
-            className="glass glow-border rounded-3xl p-8 sm:p-12 relative overflow-hidden"
+            className="glass glow-border rounded-3xl p-6 sm:p-8 lg:p-12 relative overflow-hidden"
           >
             {/* Subtle shimmer bar */}
             <div
@@ -292,7 +292,7 @@ export default function Waitlist() {
                       type="submit"
                       disabled={status === 'loading'}
                       aria-label="Join the Midnight Ceramide waitlist"
-                      className="btn-primary w-full justify-center disabled:opacity-70 disabled:cursor-not-allowed"
+                      className="btn-primary w-full justify-center disabled:opacity-70 disabled:cursor-not-allowed py-3.5"
                     >
                       {status === 'loading' ? (
                         <>

@@ -1,4 +1,4 @@
-﻿import { useRef } from "react"
+import { useRef } from "react"
 import { motion, useInView } from "framer-motion"
 
 const notes = [
@@ -16,7 +16,6 @@ const stats = [
 ]
 
 function CountUp({ target, suffix, inView }) {
-  const count = useRef(0)
   const ref = useRef(null)
 
   return (
@@ -65,14 +64,14 @@ export default function ScentStory() {
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
-          className="text-center mb-16"
+          className="text-center mb-10 sm:mb-16"
         >
           <span className="inline-block text-xs font-semibold tracking-widest uppercase text-brand-primary mb-4">
             The Formula
           </span>
           <h2
             id="scent-story-heading"
-            className="font-display text-4xl sm:text-5xl font-semibold text-brand-text mb-4"
+            className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold text-brand-text mb-4"
           >
             Composed Like{" "}
             <span className="text-gradient italic">Music</span>
@@ -83,15 +82,15 @@ export default function ScentStory() {
         </motion.div>
 
         {/* Note pyramid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-16 items-center">
           <div className="flex flex-col gap-4">
-            {notes.map((layer, i) => (
+            {notes.map((layer) => (
               <motion.div
                 key={layer.layer}
                 initial={{ opacity: 0, x: -40 }}
                 animate={inView ? { opacity: 1, x: 0 } : {}}
                 transition={{ duration: 0.6, delay: layer.delay }}
-                className="group relative rounded-2xl glass glow-border p-5 overflow-hidden"
+                className="group relative rounded-2xl glass glow-border p-4 sm:p-5 overflow-hidden"
               >
                 {/* Left color bar */}
                 <div
@@ -124,19 +123,19 @@ export default function ScentStory() {
           </div>
 
           {/* Stats grid */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-3 sm:gap-4">
             {stats.map((stat, i) => (
               <motion.div
                 key={stat.label}
                 initial={{ opacity: 0, scale: 0.85 }}
                 animate={inView ? { opacity: 1, scale: 1 } : {}}
                 transition={{ duration: 0.6, delay: 0.2 + i * 0.1 }}
-                className="glass glow-border rounded-2xl p-6 text-center group hover:border-purple-500/50 transition-all duration-300"
+                className="glass glow-border rounded-2xl p-4 sm:p-6 text-center group hover:border-purple-500/50 transition-all duration-300"
               >
                 <div className="font-display text-4xl sm:text-5xl font-semibold text-gradient mb-2">
                   <CountUp target={stat.value} suffix={stat.suffix} inView={inView} />
                 </div>
-                <div className="text-xs text-brand-muted tracking-wide">{stat.label}</div>
+                <div className="text-[10px] sm:text-xs text-brand-muted tracking-wide">{stat.label}</div>
               </motion.div>
             ))}
           </div>

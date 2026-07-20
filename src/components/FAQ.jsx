@@ -48,15 +48,15 @@ function FAQItem({ item, isOpen, onToggle }) {
         aria-expanded={isOpen}
         aria-controls={`${item.id}-answer`}
         onClick={onToggle}
-        className="w-full flex items-center justify-between py-5 text-left group"
+        className="w-full flex items-center justify-between gap-3 py-5 sm:py-5.5 text-left group focus:outline-none focus-visible:ring-1 focus-visible:ring-brand-primary rounded-lg transition-colors"
       >
-        <span className="font-medium text-brand-text group-hover:text-brand-accent transition-colors duration-200 pr-4 text-sm sm:text-base leading-snug">
+        <span className="font-medium text-brand-text group-hover:text-brand-accent group-active:text-brand-accent transition-colors duration-200 pr-4 text-sm sm:text-base leading-snug">
           {item.question}
         </span>
         <motion.span
           animate={{ rotate: isOpen ? 45 : 0 }}
           transition={{ duration: 0.3 }}
-          className="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-brand-primary"
+          className="flex-shrink-0 w-11 h-11 rounded-full flex items-center justify-center text-brand-primary group-active:scale-90 transition-transform duration-200"
           style={{ background: 'rgba(139, 92, 246, 0.1)' }}
           aria-hidden="true"
         >
@@ -110,14 +110,14 @@ export default function FAQ() {
             initial={{ opacity: 0, x: -30 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.7 }}
-            className="lg:col-span-2 lg:sticky lg:top-28"
+            className="lg:col-span-2 lg:sticky lg:top-28 text-center lg:text-left"
           >
             <span className="inline-block text-xs font-semibold tracking-widest uppercase text-brand-primary mb-4">
               FAQ
             </span>
             <h2
               id="faq-heading"
-              className="font-display text-4xl sm:text-5xl font-semibold text-brand-text mb-4"
+              className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold text-brand-text mb-4"
             >
               Got{' '}
               <span className="text-gradient italic">Questions?</span>
@@ -129,7 +129,7 @@ export default function FAQ() {
               href="mailto:hello@midnightceramide.com"
               id="faq-contact-link"
               aria-label="Email us your question"
-              className="btn-outline text-sm"
+              className="btn-outline text-sm w-full sm:w-auto"
             >
               Contact Us
             </a>
@@ -147,7 +147,7 @@ export default function FAQ() {
             initial={{ opacity: 0, x: 30 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.15 }}
-            className="lg:col-span-3 glass glow-border rounded-2xl px-6 sm:px-8 py-4"
+            className="lg:col-span-3 glass glow-border rounded-2xl px-4 sm:px-6 lg:px-8 py-2 sm:py-4"
           >
             {faqs.map((faq) => (
               <FAQItem

@@ -71,7 +71,7 @@ export default function Hero() {
       ref={sectionRef}
       id="hero"
       aria-label="Hero section"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden px-3 pb-16 pt-24 sm:px-6 lg:px-8"
       style={{ background: 'radial-gradient(ellipse at 50% 0%, #1e0a3c 0%, #0a0010 65%)' }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
@@ -90,13 +90,13 @@ export default function Hero() {
 
       <Particles />
 
-      <div className="container-max section-padding relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center min-h-screen">
+      <div className="container-max relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-center min-h-screen py-10 sm:py-16 lg:py-0">
         {/* Left: Text */}
         <motion.div
           variants={container}
           initial="hidden"
           animate="show"
-          className="flex flex-col gap-6 text-center lg:text-left pt-24 lg:pt-0"
+          className="flex flex-col gap-5 text-center lg:text-left pt-4 sm:pt-8 lg:pt-0"
         >
           {/* Badge */}
           <motion.div variants={item} className="flex justify-center lg:justify-start">
@@ -109,14 +109,14 @@ export default function Hero() {
           {/* Headline */}
           <motion.h1
             variants={item}
-            className="font-display text-5xl sm:text-6xl lg:text-7xl font-semibold leading-none tracking-tight"
+            className="font-display text-4xl sm:text-5xl lg:text-7xl font-semibold leading-none tracking-tight"
           >
             The Scent of{' '}
             <span className="block italic text-gradient">Midnight</span>
           </motion.h1>
 
           {/* Sub-headline */}
-          <motion.p variants={item} className="text-lg sm:text-xl text-brand-muted max-w-md mx-auto lg:mx-0 leading-relaxed font-light">
+          <motion.p variants={item} className="text-base sm:text-lg lg:text-xl text-brand-muted max-w-md mx-auto lg:mx-0 leading-relaxed font-light">
             Where luxury fragrance meets skin science. <em className="text-brand-accent not-italic">Midnight Ceramide</em> fuses 
             deep nocturnal accords with next-generation ceramide technology for a scent that lingers — and nourishes.
           </motion.p>
@@ -131,12 +131,12 @@ export default function Hero() {
           </motion.div>
 
           {/* CTAs */}
-          <motion.div variants={item} className="flex flex-row sm:flex-row gap-3 justify-center lg:justify-start">
+          <motion.div variants={item} className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
             <a
               href="#waitlist"
               id="hero-waitlist-cta"
               aria-label="Join the exclusive waitlist"
-              className="btn-primary"
+              className="btn-primary w-full sm:w-auto"
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="shrink-0">
                 <path d="M5 12h14M12 5l7 7-7 7" />
@@ -147,7 +147,7 @@ export default function Hero() {
               href="#features"
               id="hero-features-cta"
               aria-label="Discover the benefits"
-              className="btn-outline"
+              className="btn-outline w-full sm:w-auto"
             >
               Discover
             </a>
@@ -169,7 +169,7 @@ export default function Hero() {
         >
           {/* Glow ring */}
           <div
-            className="absolute w-72 h-72 sm:w-96 sm:h-96 rounded-full opacity-30 blur-3xl"
+            className="absolute w-56 h-56 sm:w-96 sm:h-96 rounded-full opacity-30 blur-3xl"
             style={{ background: 'radial-gradient(circle, #7c3aed 0%, #a855f7 40%, transparent 70%)' }}
           />
           {/* Rotating ring */}
@@ -182,11 +182,12 @@ export default function Hero() {
             style={{ animation: 'spin 15s linear infinite reverse' }}
           />
 
-          {/* Bottle image — parallax on mouse */}
+          {/* Bottle image — parallax on mouse / tap interaction on mobile */}
           <motion.img
             src={bottleImg}
             alt="Midnight Ceramide luxury perfume bottle"
-            className="relative z-10 w-56 sm:w-72 lg:w-80 xl:w-96 drop-shadow-2xl object-contain"
+            className="relative z-10 w-48 sm:w-72 lg:w-80 xl:w-96 drop-shadow-2xl object-contain cursor-pointer"
+            whileTap={{ scale: 1.05, rotate: -2, transition: { duration: 0.15 } }}
             animate={{
               rotateY: tilt.x,
               rotateX: tilt.y,
